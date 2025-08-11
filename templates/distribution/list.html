@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Releases - Nigerian Music Distribution Platform{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2 mb-0">My Releases</h1>
+                <a href="{% url 'upload_release' %}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>New Release
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if releases %}
+        <div class="row g-4">
+            {% for release in releases %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100">
+                    {% if release.cover_art %}
+                        <img src="{{ release.cover_art.url }}" class="card-img-top" alt="{{ release.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="fas fa-music fa-4x text-muted"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ release.title }}</h5>
+                        <p class="card-text text-muted mb-2">by {{ release.artist_name }}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-secondary">{{ release.get_release_type_display }}</span>
+                            <span class="badge 
+                                {% if release.status == 'live' %}bg-success
+                                {% elif release.status == 'approved' %}bg-info
+                                {% elif release.status == 'pending' %}bg-warning
+                                {% elif release.status == 'rejected' %}bg-danger
+                                {% else %}bg-secondary{% endif %}">
+                                {{ release.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <div class="row text-center mb-3">
+                            <div class="col-6">
+                                <small class="text-muted">Release Date</small>
+                                <div class="fw-semibold">{{ release.release_date|date:"M d, Y" }}</div>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted">Genre</small>
+                                <div class="fw-semibold">{{ release.genre }}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <small class="text-muted">Tracks: {{ release.tracks.count }}</small>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary btn-sm flex-fill">
+                                <i class="fas fa-edit me-1"></i>Edit
+                            </button>
+                            <button class="btn btn-outline-info btn-sm flex-fill">
+                                <i class="fas fa-chart-line me-1"></i>Analytics
+                            </button>
+                            <button class="btn btn-outline-success btn-sm flex-fill">
+                                <i class="fas fa-share me-1"></i>Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination if needed -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <p class="text-muted">Showing {{ releases.count }} release{{ releases.count|pluralize }}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center py-5">
+                    <i class="fas fa-music fa-5x text-muted mb-4"></i>
+                    <h3 class="text-muted">No Releases Yet</h3>
+                    <p class="text-muted mb-4">Start your music distribution journey by uploading your first release.</p>
+                    <a href="{% url 'upload_release' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-upload me-2"></i>Upload Your First Release
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

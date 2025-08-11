@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Analytics Dashboard - Nigerian Music Distribution Platform{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h2 mb-4">Analytics Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-lg-4 col-md-6">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title text-white-50">Total Releases</h6>
+                            <h3 class="mb-0">{{ total_releases }}</h3>
+                        </div>
+                        <div class="align-self-start">
+                            <i class="fas fa-music fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title text-white-50">Live Releases</h6>
+                            <h3 class="mb-0">{{ releases|length }}</h3>
+                        </div>
+                        <div class="align-self-start">
+                            <i class="fas fa-broadcast-tower fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title text-white-50">Platforms</h6>
+                            <h3 class="mb-0">200+</h3>
+                        </div>
+                        <div class="align-self-start">
+                            <i class="fas fa-globe fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Release Performance</h5>
+                </div>
+                <div class="card-body">
+                    {% if release_stats %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Release</th>
+                                        <th>Artist</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Streams</th>
+                                        <th>Earnings</th>
+                                        <th>Release Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for stat in release_stats %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if stat.release.cover_art %}
+                                                    <img src="{{ stat.release.cover_art.url }}" alt="Cover" class="rounded me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                                {% else %}
+                                                    <div class="bg-light rounded me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                        <i class="fas fa-music text-muted"></i>
+                                                    </div>
+                                                {% endif %}
+                                                <strong>{{ stat.release.title }}</strong>
+                                            </div>
+                                        </td>
+                                        <td>{{ stat.release.artist_name }}</td>
+                                        <td>
+                                            <span class="badge bg-secondary">{{ stat.release.get_release_type_display }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge 
+                                                {% if stat.release.status == 'live' %}bg-success
+                                                {% elif stat.release.status == 'approved' %}bg-info
+                                                {% elif stat.release.status == 'pending' %}bg-warning
+                                                {% elif stat.release.status == 'rejected' %}bg-danger
+                                                {% else %}bg-secondary{% endif %}">
+                                                {{ stat.release.get_status_display }}
+                                            </span>
+                                        </td>
+                                        <td>{{ stat.streams|floatformat:0 }}</td>
+                                        <td>₦{{ stat.earnings|floatformat:2 }}</td>
+                                        <td>{{ stat.release.release_date|date:"M d, Y" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-chart-bar fa-4x text-muted mb-4"></i>
+                            <h4 class="text-muted">No Analytics Data Yet</h4>
+                            <p class="text-muted mb-4">Upload your first release to start seeing analytics data here.</p>
+                            <a href="{% url 'upload_release' %}" class="btn btn-primary">
+                                <i class="fas fa-upload me-2"></i>Upload Your First Release
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

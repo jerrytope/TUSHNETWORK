@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Nigerian Music Distribution Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold mb-3">About MusicDistribute NG</h1>
+                <p class="lead text-muted">Empowering Nigerian artists and labels to reach global audiences while keeping 100% of their royalties.</p>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="bg-light p-4 rounded-3">
+                        <h3 class="text-primary mb-3">Our Mission</h3>
+                        <p>To democratize music distribution for Nigerian artists and provide them with the tools they need to succeed in the global music industry.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-light p-4 rounded-3">
+                        <h3 class="text-primary mb-3">Our Vision</h3>
+                        <p>To become Africa's leading music distribution platform, helping artists build sustainable careers and reach fans worldwide.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="mb-4">Why Choose MusicDistribute NG?</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-map-marker-alt text-success fa-3x mb-3"></i>
+                            <h5>Nigerian Focus</h5>
+                            <p class="text-muted">Built specifically for the Nigerian market with local payment methods and support.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-money-bill-wave text-success fa-3x mb-3"></i>
+                            <h5>Fair Pricing</h5>
+                            <p class="text-muted">Transparent pricing with no hidden fees. You keep 100% of your royalties.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-users text-success fa-3x mb-3"></i>
+                            <h5>Expert Support</h5>
+                            <p class="text-muted">Dedicated Nigerian support team that understands the local music industry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center bg-primary text-white p-5 rounded-3">
+                <h3 class="mb-3">Ready to Get Started?</h3>
+                <p class="mb-4">Join thousands of Nigerian artists already earning from their music.</p>
+                <a href="{% url 'signup' %}" class="btn btn-success btn-lg">Start Your Journey</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

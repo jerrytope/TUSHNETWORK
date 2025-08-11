@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Nigerian Music Distribution Platform{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 col-xl-2 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action active">
+                            <i class="fas fa-dashboard me-3"></i>Dashboard
+                        </a>
+                        <a href="{% url 'upload_release' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-upload me-3"></i>Upload Music
+                        </a>
+                        <a href="{% url 'release_list' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-list me-3"></i>My Releases
+                        </a>
+                        <a href="{% url 'analytics_dashboard' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-chart-line me-3"></i>Analytics
+                        </a>
+                        <a href="{% url 'royalties' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-money-bill me-3"></i>Royalties
+                        </a>
+                        <a href="{% url 'support_center' %}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-headset me-3"></i>Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9 col-xl-10">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h3 mb-1">Welcome back, {{ user.username }}!</h1>
+                    <p class="text-muted mb-0">
+                        {% if user.account_type == 'artist' %}
+                            Manage your music distribution and track your performance
+                        {% else %}
+                            Manage your label's artists and releases
+                        {% endif %}
+                    </p>
+                </div>
+                <a href="{% url 'upload_release' %}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Upload New Release
+                </a>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1 text-primary">{{ total_releases }}</h3>
+                                    <p class="text-muted mb-0">Total Releases</p>
+                                </div>
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1 text-success">{{ total_streams|default:"0" }}</h3>
+                                    <p class="text-muted mb-0">Total Streams</p>
+                                </div>
+                                <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1 text-warning">₦{{ total_earnings|default:"0" }}</h3>
+                                    <p class="text-muted mb-0">Total Earnings</p>
+                                </div>
+                                <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-money-bill"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1 text-info">{{ user.plan|title }}</h3>
+                                    <p class="text-muted mb-0">Current Plan</p>
+                                </div>
+                                <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-transparent border-0 py-3">
+                            <h5 class="mb-0">Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-lg-6">
+                                    <a href="{% url 'upload_release' %}" class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                        <i class="fas fa-upload fa-2x mb-2"></i>
+                                        <span>Upload New Music</span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a href="{% url 'pricing' %}" class="btn btn-outline-success btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                        <i class="fas fa-arrow-up fa-2x mb-2"></i>
+                                        <span>Upgrade Plan</span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a href="{% url 'analytics_dashboard' %}" class="btn btn-outline-info btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                        <i class="fas fa-chart-bar fa-2x mb-2"></i>
+                                        <span>View Analytics</span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a href="{% url 'support_center' %}" class="btn btn-outline-warning btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                        <i class="fas fa-question-circle fa-2x mb-2"></i>
+                                        <span>Get Support</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-transparent border-0 py-3">
+                            <h5 class="mb-0">Account Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-{% if user.is_verified %}success{% else %}warning{% endif %} bg-opacity-10 text-{% if user.is_verified %}success{% else %}warning{% endif %} rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-{% if user.is_verified %}check-circle{% else %}clock{% endif %}"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-semibold">
+                                        {% if user.is_verified %}Verified Account{% else %}Pending Verification{% endif %}
+                                    </p>
+                                    <small class="text-muted">
+                                        {% if user.is_verified %}Your account is fully verified{% else %}Complete verification to unlock all features{% endif %}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-semibold">{{ user.plan|title }} Plan</p>
+                                    <small class="text-muted">Active subscription</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent border-0 py-3">
+                    <h5 class="mb-0">Recent Releases</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_releases %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Artist</th>
+                                        <th>Status</th>
+                                        <th>Release Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for release in recent_releases %}
+                                        <tr>
+                                            <td>{{ release.title }}</td>
+                                            <td>{{ release.artist_name }}</td>
+                                            <td>
+                                                <span class="badge bg-{% if release.status == 'live' %}success{% elif release.status == 'pending' %}warning{% else %}secondary{% endif %}">
+                                                    {{ release.status|title }}
+                                                </span>
+                                            </td>
+                                            <td>{{ release.release_date }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-music fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted mb-2">No releases yet</h5>
+                            <p class="text-muted mb-3">Upload your first track to get started with distribution</p>
+                            <a href="{% url 'upload_release' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Upload Your First Track
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

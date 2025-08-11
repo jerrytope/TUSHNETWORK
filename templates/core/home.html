@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Nigerian Music Distribution Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-gradient-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">
+                    Distribute Your Music to 
+                    <span class="text-success">200+ Platforms</span> 
+                    Worldwide
+                </h1>
+                <p class="lead mb-4">
+                    Keep 100% of your royalties while reaching global audiences. 
+                    Nigeria's premier music distribution platform for artists and labels.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'signup' %}" class="btn btn-success btn-lg px-4 py-3">
+                        <i class="fas fa-rocket me-2"></i>Get Started Free
+                    </a>
+                    <a href="{% url 'pricing' %}" class="btn btn-outline-light btn-lg px-4 py-3">
+                        View Pricing
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image-container">
+                    <img src="https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                         alt="Music Distribution" class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Everything You Need to Succeed</h2>
+                <p class="lead text-muted">Comprehensive tools and services designed for Nigerian artists and labels</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm border-0">
+                    <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-globe fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Global Distribution</h4>
+                    <p class="text-muted">Reach Spotify, Apple Music, YouTube Music, Boomplay, and 200+ other platforms worldwide.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm border-0">
+                    <div class="feature-icon bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-percentage fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Keep 100% Royalties</h4>
+                    <p class="text-muted">No hidden fees or revenue sharing. You keep every naira you earn from your music.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm border-0">
+                    <div class="feature-icon bg-warning bg-opacity-10 text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-link fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">SmartLinks</h4>
+                    <p class="text-muted">Create professional landing pages that direct fans to your music on their preferred platform.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm border-0">
+                    <div class="feature-icon bg-info bg-opacity-10 text-info rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-chart-line fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Advanced Analytics</h4>
+                    <p class="text-muted">Track your streams, earnings, and audience demographics with detailed reports.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm border-0">
+                    <div class="feature-icon bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-bullhorn fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">Playlist Pitching</h4>
+                    <p class="text-muted">Get your music considered for editorial playlists and increase your reach.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100 p-4 bg-white rounded-3 shadow-sm border-0">
+                    <div class="feature-icon bg-secondary bg-opacity-10 text-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="fas fa-headset fa-2x"></i>
+                    </div>
+                    <h4 class="mb-3">24/7 Support</h4>
+                    <p class="text-muted">Get help whenever you need it with our dedicated Nigerian support team.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Platforms Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Distribute to Major Platforms</h2>
+                <p class="lead text-muted">Your music will be available on all the platforms your fans use</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center align-items-center g-4">
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+                <div class="platform-logo p-3 rounded bg-light shadow-sm">
+                    <i class="fab fa-spotify text-success" style="font-size: 2.5rem;"></i>
+                    <p class="mt-2 mb-0 small fw-bold">Spotify</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+                <div class="platform-logo p-3 rounded bg-light shadow-sm">
+                    <i class="fab fa-apple text-dark" style="font-size: 2.5rem;"></i>
+                    <p class="mt-2 mb-0 small fw-bold">Apple Music</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+                <div class="platform-logo p-3 rounded bg-light shadow-sm">
+                    <i class="fab fa-youtube text-danger" style="font-size: 2.5rem;"></i>
+                    <p class="mt-2 mb-0 small fw-bold">YouTube Music</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+                <div class="platform-logo p-3 rounded bg-light shadow-sm">
+                    <i class="fab fa-amazon text-warning" style="font-size: 2.5rem;"></i>
+                    <p class="mt-2 mb-0 small fw-bold">Amazon Music</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+                <div class="platform-logo p-3 rounded bg-light shadow-sm">
+                    <i class="fas fa-music text-primary" style="font-size: 2.5rem;"></i>
+                    <p class="mt-2 mb-0 small fw-bold">Boomplay</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 text-center">
+                <div class="platform-logo p-3 rounded bg-light shadow-sm">
+                    <i class="fas fa-plus text-info" style="font-size: 2.5rem;"></i>
+                    <p class="mt-2 mb-0 small fw-bold">195+ More</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-3">Ready to Share Your Music with the World?</h2>
+                <p class="lead mb-0">Join thousands of Nigerian artists already earning from their music.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'signup' %}" class="btn btn-success btn-lg px-4 py-3">
+                    <i class="fas fa-arrow-right me-2"></i>Start Distributing
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

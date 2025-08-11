@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Upload Release - Nigerian Music Distribution Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold mb-3">Upload Your Music</h1>
+                <p class="lead text-muted">Share your music with the world. Distribute to 200+ platforms and keep 100% of your royalties.</p>
+            </div>
+
+            <div class="card shadow border-0">
+                <div class="card-body p-5">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Release Information -->
+                        <div class="mb-5">
+                            <h4 class="text-primary mb-4">Release Information</h4>
+                            
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="{{ release_form.title.id_for_label }}" class="form-label fw-semibold">Release Title</label>
+                                    {{ release_form.title }}
+                                    {% if release_form.title.errors %}
+                                        <div class="text-danger small">{{ release_form.title.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ release_form.artist_name.id_for_label }}" class="form-label fw-semibold">Artist Name</label>
+                                    {{ release_form.artist_name }}
+                                    {% if release_form.artist_name.errors %}
+                                        <div class="text-danger small">{{ release_form.artist_name.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ release_form.release_type.id_for_label }}" class="form-label fw-semibold">Release Type</label>
+                                    {{ release_form.release_type }}
+                                    {% if release_form.release_type.errors %}
+                                        <div class="text-danger small">{{ release_form.release_type.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ release_form.genre.id_for_label }}" class="form-label fw-semibold">Genre</label>
+                                    {{ release_form.genre }}
+                                    {% if release_form.genre.errors %}
+                                        <div class="text-danger small">{{ release_form.genre.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ release_form.release_date.id_for_label }}" class="form-label fw-semibold">Release Date</label>
+                                    {{ release_form.release_date }}
+                                    {% if release_form.release_date.errors %}
+                                        <div class="text-danger small">{{ release_form.release_date.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ release_form.cover_art.id_for_label }}" class="form-label fw-semibold">Cover Art</label>
+                                    {{ release_form.cover_art }}
+                                    <div class="form-text">Recommended: 3000x3000px, JPG or PNG</div>
+                                    {% if release_form.cover_art.errors %}
+                                        <div class="text-danger small">{{ release_form.cover_art.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Track Information -->
+                        <div class="mb-5">
+                            <h4 class="text-primary mb-4">Track Information</h4>
+                            
+                            {{ track_formset.management_form }}
+                            
+                            <div id="tracks-container">
+                                {% for form in track_formset %}
+                                <div class="track-form border rounded p-4 mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="mb-0">Track {{ forloop.counter }}</h6>
+                                        {% if not forloop.first %}
+                                        <button type="button" class="btn btn-sm btn-outline-danger remove-track">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    {{ form.id }}
+                                    {% if form.DELETE %}{{ form.DELETE }}{% endif %}
+                                    
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="{{ form.title.id_for_label }}" class="form-label">Track Title</label>
+                                            {{ form.title }}
+                                            {% if form.title.errors %}
+                                                <div class="text-danger small">{{ form.title.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{{ form.audio_file.id_for_label }}" class="form-label">Audio File</label>
+                                            {{ form.audio_file }}
+                                            <div class="form-text">WAV, MP3, FLAC supported</div>
+                                            {% if form.audio_file.errors %}
+                                                <div class="text-danger small">{{ form.audio_file.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{{ form.duration.id_for_label }}" class="form-label">Duration</label>
+                                            {{ form.duration }}
+                                            {% if form.duration.errors %}
+                                                <div class="text-danger small">{{ form.duration.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{{ form.track_number.id_for_label }}" class="form-label">Track Number</label>
+                                            {{ form.track_number }}
+                                            {% if form.track_number.errors %}
+                                                <div class="text-danger small">{{ form.track_number.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <button type="button" class="btn btn-outline-primary" id="add-track">
+                                <i class="fas fa-plus me-2"></i>Add Another Track
+                            </button>
+                        </div>
+
+                        <!-- Terms and Submit -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#" class="text-primary">Terms of Service</a> and confirm that I have the rights to distribute this music.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg py-3">
+                                <i class="fas fa-upload me-2"></i>Submit for Review
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Information Cards -->
+            <div class="row g-4 mt-5">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-clock text-primary fa-2x"></i>
+                        </div>
+                        <h6>Review Process</h6>
+                        <p class="text-muted small">Your release will be reviewed within 24-48 hours for quality and compliance.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-globe text-success fa-2x"></i>
+                        </div>
+                        <h6>Global Distribution</h6>
+                        <p class="text-muted small">Once approved, your music will be distributed to 200+ platforms worldwide.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-money-bill-wave text-info fa-2x"></i>
+                        </div>
+                        <h6>Earn Royalties</h6>
+                        <p class="text-muted small">Start earning from streams, downloads, and sales. You keep 100% of your royalties.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Django formset handling
+let trackCount = {{ track_formset.total_form_count|default:1 }};
+
+document.getElementById('add-track').addEventListener('click', function() {
+    const container = document.getElementById('tracks-container');
+    const totalFormsInput = document.querySelector('#id_form-TOTAL_FORMS');
+    
+    // Clone the last form
+    const lastForm = container.querySelector('.track-form:last-child');
+    const newForm = lastForm.cloneNode(true);
+    
+    // Update form index
+    const formIndex = trackCount;
+    trackCount++;
+    
+    // Update all form field names and IDs
+    newForm.querySelectorAll('input, select, textarea').forEach(function(input) {
+        if (input.name) {
+            input.name = input.name.replace(/form-\d+/, `form-${formIndex}`);
+        }
+        if (input.id) {
+            input.id = input.id.replace(/form-\d+/, `form-${formIndex}`);
+        }
+        // Clear values except for track number
+        if (input.name && input.name.includes('track_number')) {
+            input.value = formIndex + 1;
+        } else if (input.type !== 'hidden') {
+            input.value = '';
+        }
+    });
+    
+    // Update labels
+    newForm.querySelectorAll('label').forEach(function(label) {
+        if (label.getAttribute('for')) {
+            label.setAttribute('for', label.getAttribute('for').replace(/form-\d+/, `form-${formIndex}`));
+        }
+    });
+    
+    // Update track header
+    newForm.querySelector('h6').textContent = `Track ${formIndex + 1}`;
+    
+    // Show remove button
+    const removeBtn = newForm.querySelector('.remove-track');
+    if (removeBtn) {
+        removeBtn.style.display = 'block';
+    }
+    
+    container.appendChild(newForm);
+    
+    // Update total forms count
+    totalFormsInput.value = trackCount;
+    
+    // Add remove functionality
+    newForm.querySelector('.remove-track').addEventListener('click', function() {
+        newForm.remove();
+        updateTrackNumbers();
+    });
+});
+
+// Remove track functionality
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.remove-track')) {
+        e.target.closest('.track-form').remove();
+        updateTrackNumbers();
+    }
+});
+
+function updateTrackNumbers() {
+    const tracks = document.querySelectorAll('.track-form');
+    tracks.forEach((track, index) => {
+        track.querySelector('h6').textContent = `Track ${index + 1}`;
+        const trackNumberInput = track.querySelector('input[name*="track_number"]');
+        if (trackNumberInput) {
+            trackNumberInput.value = index + 1;
+        }
+    });
+    trackCount = tracks.length;
+    document.querySelector('#id_form-TOTAL_FORMS').value = trackCount;
+}
+</script>
+{% endblock %}
