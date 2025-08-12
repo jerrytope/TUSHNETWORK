@@ -1,1 +1,1 @@
-web: gunicorn music_platform.wsgi
+web: gunicorn music_platform.wsgi --bind 0.0.0.0:$PORT
