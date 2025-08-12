@@ -18,7 +18,7 @@ SECRET_KEY = 'django-insecure-your-secret-key-here-change-in-production'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["https://web-production-4a7b.up.railway.app/"]
 
 
 # Application definition
@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'analytics',
     'support',
 ]
+CSRF_TRUSTED_ORIGINS = ['https://web-production-4a7b.up.railway.app/']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  
